@@ -16,7 +16,7 @@ async function main() {
   app.use("/", publicPagesRouter)
 
   app.listen(config.server.port, () => {
-    console.log("starting server on port ", config.server.port)
+    console.log("starting server on port", config.server.port)
   })
 }
 
