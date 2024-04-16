@@ -1,5 +1,4 @@
-
-# express-sandbox
+# express-dashboard
 
 ## Scripts
 
