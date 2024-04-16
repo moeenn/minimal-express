@@ -9,11 +9,9 @@ import { BaseLayout } from "#src/views/layouts/BaseLayout.mjs"
  * @returns {string}
  */
 export function HomePage(props) {
-  const children = html`
+  return BaseLayout({ title: "Home" })(html`
     <div class="container mx-auto p-4">
       <h1>Hello, ${props.name}!</h1>
     </div>
-  `
-
-  return BaseLayout({ title: "Home", children })
+  `)
 }

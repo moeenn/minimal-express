@@ -60,9 +60,11 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "express": "^4.19.2",
     "express-minify": "^1.0.0",
-    "noop-tag": "^2.0.0"
+    "noop-tag": "^2.0.0",
+    "zod": "^3.22.4"
   }
 }
