@@ -13,7 +13,11 @@
     "test": "node --test",
     "lint": "npx eslint ./src/ --ext .mjs",
     "fmt": "npx prettier --write 'src/**/*.mjs'",
-    "check": "npm run type-check && npm run lint"
+    "check": "npm run type-check && npm run lint",
+    "migrate:up": "dotenv -- node-pg-migrate up",
+    "migrate:down": "dotenv -- node-pg-migrate down",
+    "migrate:redo": "dotenv -- node-pg-migrate redo",
+    "migrate:create": "node-pg-migrate create -j sql"
   },
   "imports": {
     "#src/*": "./src/*"
@@ -59,14 +63,17 @@
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "dotenv-cli": "^7.4.1"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "express": "^4.19.2",
     "express-minify": "^1.0.0",
+    "node-pg-migrate": "^6.2.2",
     "noop-tag": "^2.0.0",
+    "pg": "^8.11.5",
     "zod": "^3.22.4"
   }
 }

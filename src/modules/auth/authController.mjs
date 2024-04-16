@@ -1,5 +1,6 @@
 import { LoginPage } from "./views/pages/LoginPage.mjs"
 import { LoginFormDTO } from "./authDTO.mjs"
+import { recover } from "#src/core/utils/recover.mjs"
 
 export const AuthController = {
   /**
@@ -17,11 +18,11 @@ export const AuthController = {
    * @param {import("express").Response} res
    */
   processLoginSubmission(req, res) {
-    try {
-      const form = new LoginFormDTO(req.body)
-      res.json({ email: form.email, passwword: form.password })
-    } catch (err) {
-      res.status(422).json(err)
+    const form = recover(() => new LoginFormDTO(req.body))
+    if (form.error) {
+      return res.status(422).json({ error: form.error })
     }
+
+    res.json({ email: form.ok.email, passwword: form.ok.password })
   },
 }
