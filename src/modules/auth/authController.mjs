@@ -1,4 +1,4 @@
-import { LoginPage } from "#src/views/pages/LoginPage.mjs"
+import { LoginPage } from "./views/pages/LoginPage.mjs"
 import { LoginFormDTO } from "./authDTO.mjs"
 
 export const AuthController = {

@@ -5,8 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "nodemon ./src/index.mjs",
+    "start:prod": "node ./src/index.mjs",
     "css:watch": "npx tailwindcss -i ./public/css/styles.input.css -o ./public/css/styles.output.css --watch",
     "css:build": "npx tailwindcss -i ./public/css/styles.input.css -o ./public/css/styles.output.css",
+    "build": "npm run fmt && npm run check && npm run css:build",
     "type-check": "tsc --project jsconfig.json",
     "test": "node --test",
     "lint": "npx eslint ./src/ --ext .mjs",

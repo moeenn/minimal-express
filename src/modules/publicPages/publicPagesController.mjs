@@ -1,4 +1,4 @@
-import { HomePage } from "#src/views/pages/HomePage.mjs"
+import { HomePage } from "./views/pages/HomePage.mjs"
 
 export const PublicPagesController = {
   /**
