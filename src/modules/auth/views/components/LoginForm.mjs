@@ -14,6 +14,8 @@ export function LoginForm(props) {
         <input
           type="email"
           name="email"
+          id="email"
+          autocomplete="email"
           class="px-3 py-2 text-xs border border-gray-300 rounded w-full"
           value="${props.email ?? ""}"
           required
@@ -25,6 +27,8 @@ export function LoginForm(props) {
         <input
           type="password"
           name="password"
+          id="password"
+          autocomplete="off"
           class="px-3 py-2 text-xs border border-gray-300 rounded w-full"
           rquired
           minlength="8"
