@@ -1,5 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
+import session from "express-session"
+import cookieParser from "cookie-parser"
 import { config } from "#src/config.mjs"
 
 /**
@@ -14,6 +16,8 @@ export function createServer() {
   /** register all global middleware here */
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(cookieParser())
+  app.use(session(config.auth.session))
 
   /** expose static assets and public files */
   app.use(express.static(config.server.publicDir))

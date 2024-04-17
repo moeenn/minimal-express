@@ -10,4 +10,14 @@ export const config = {
   database: {
     uri: env("DATABASE_URL"),
   },
+  auth: {
+    session: {
+      secret: env("SESSION_SECRET"),
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        secure: true,
+      },
+    },
+  },
 }
