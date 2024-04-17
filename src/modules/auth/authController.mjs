@@ -1,8 +1,8 @@
 import { recover } from "#src/core/utils/recover.mjs"
+import status from "http-status"
 import { LoginPage } from "./views/pages/LoginPage.mjs"
 import { UserRegistrationPage } from "./views/pages/UserRegistrationPage.mjs"
 import { LoginFormDTO, UserRegisterFormDTO } from "./authDTO.mjs"
-import status from "http-status"
 
 export const AuthController = {
   /**
@@ -48,6 +48,10 @@ export const AuthController = {
       return res.status(status.UNPROCESSABLE_ENTITY).json({ error: form.error })
     }
 
-    res.json({ email: form.ok.email, password: form.ok.password, confirmPassword: form.ok.confirmPassword })
-  }
+    res.json({
+      email: form.ok.email,
+      password: form.ok.password,
+      confirmPassword: form.ok.confirmPassword,
+    })
+  },
 }
