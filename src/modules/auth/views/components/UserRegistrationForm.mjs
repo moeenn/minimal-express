@@ -6,7 +6,7 @@ import html from "noop-tag"
  *
  * @param {Props} props
  */
-export function LoginForm(props) {
+export function UserRegistrationForm(props) {
   return html`
     <form class="flex flex-col space-y-4" method="POST">
       <fieldset class="flex flex-col space-y-1">
@@ -31,25 +31,30 @@ export function LoginForm(props) {
         />
       </fieldset>
 
+      <fieldset class="flex flex-col space-y-1">
+        <label for="password" class="text-xs">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          class="px-3 py-2 text-xs border border-gray-300 rounded w-full"
+          rquired
+          minlength="8"
+        />
+      </fieldset>
+
       <fieldset>
         <input
           type="submit"
-          value="Login"
+          value="Submit"
           class="px-4 py-2 bg-blue-600 hover:bg-opacity-90 text-white text-xs rounded"
         />
       </fieldset>
 
       <div class="mt-4">
-        <p class="text-sm">
-          Don't have an account?
-          <a href="/auth/register" class="text-blue-600">Register</a>
-        </p>
-        <p class="text-sm">
-          Having problem signing-in?
-          <a href="/auth/forgot-password" class="text-blue-600"
-            >Recover password</a
-          >
-        </p>
+        <span class="text-sm"
+          >Already have an account?
+          <a href="/auth/login" class="text-blue-600">Login</a></span
+        >
       </div>
     </form>
   `

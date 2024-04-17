@@ -5,7 +5,6 @@ import { LoginForm } from "#src/modules/auth/views/components/LoginForm.mjs"
 /**
  * @typedef Props
  * @property {string} [email]
- * @property {string} [password]
  *
  * @param {Props} props
  * @returns {string}

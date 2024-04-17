@@ -1,6 +1,7 @@
-import { LoginPage } from "./views/pages/LoginPage.mjs"
-import { LoginFormDTO } from "./authDTO.mjs"
 import { recover } from "#src/core/utils/recover.mjs"
+import { LoginPage } from "./views/pages/LoginPage.mjs"
+import { UserRegistrationPage } from "./views/pages/UserRegistrationPage.mjs"
+import { LoginFormDTO } from "./authDTO.mjs"
 
 export const AuthController = {
   /**
@@ -24,5 +25,14 @@ export const AuthController = {
     }
 
     res.json({ email: form.ok.email, passwword: form.ok.password })
+  },
+
+  /**
+   *
+   * @param {import("express").Request} req
+   * @param {import("express").Response} res
+   */
+  userRegisterPage(req, res) {
+    return res.send(UserRegistrationPage({}))
   },
 }

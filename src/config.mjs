@@ -8,13 +8,16 @@ export const config = {
     publicDir: path.join(process.cwd(), "public"),
   },
   logger: {
-    level: env("LOG_LEVEL", "http"),    
+    level: env("LOG_LEVEL", "http"),
     timestampFormat: "YYYY-MM-DD HH:mm:ss.SSS",
   },
   database: {
     uri: env("DATABASE_URL"),
   },
   auth: {
+    password: {
+      minLength: 8,
+    },
     session: {
       secret: env("SESSION_SECRET"),
       resave: false,
