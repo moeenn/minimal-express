@@ -1,2 +1,6 @@
 import pg from "pg"
-export const db = new pg.Pool()
+import { config } from "#src/config.mjs"
+
+export const db = new pg.Client({
+  connectionString: config.database.uri,
+})

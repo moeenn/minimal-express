@@ -7,7 +7,7 @@ USER node
 RUN npm i -D
 
 COPY --chown=node:node . .
-RUN npm run build
+RUN npm run css:build
 
 ENV NODE_ENV=production
 EXPOSE 3000
