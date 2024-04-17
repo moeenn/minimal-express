@@ -6,6 +6,7 @@ export const config = {
   server: {
     port: 3000,
     publicDir: path.join(process.cwd(), "public"),
+    logLevel: env("LOG_LEVEL"),
   },
   database: {
     uri: env("DATABASE_URL"),

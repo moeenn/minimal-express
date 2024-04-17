@@ -3,6 +3,7 @@ import bodyParser from "body-parser"
 import session from "express-session"
 import cookieParser from "cookie-parser"
 import { config } from "#src/config.mjs"
+import { loggerMiddleware } from "./logger.mjs"
 
 /**
  * create an fully configured instance of the express server
@@ -14,6 +15,7 @@ export function createServer() {
   const app = express()
 
   /** register all global middleware here */
+  app.use(loggerMiddleware)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(cookieParser())
