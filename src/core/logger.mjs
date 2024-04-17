@@ -3,10 +3,10 @@ import morgan from "morgan"
 import { config } from "#src/config.mjs"
 
 export const logger = winston.createLogger({
-  level: config.server.logLevel, // default: 'http'
+  level: config.logger.level,
   format: winston.format.combine(
     winston.format.timestamp({
-      format: "YYYY-MM-DD HH:mm:ss.SSS",
+      format: config.logger.timestampFormat,
     }),
     winston.format.json(),
   ),

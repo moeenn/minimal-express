@@ -6,7 +6,10 @@ export const config = {
   server: {
     port: 3000,
     publicDir: path.join(process.cwd(), "public"),
-    logLevel: env("LOG_LEVEL", "http"),
+  },
+  logger: {
+    level: env("LOG_LEVEL", "http"),    
+    timestampFormat: "YYYY-MM-DD HH:mm:ss.SSS",
   },
   database: {
     uri: env("DATABASE_URL"),
