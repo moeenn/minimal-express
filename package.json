@@ -19,6 +19,7 @@
     "migrate:down": "dotenv -- node-pg-migrate down",
     "migrate:redo": "dotenv -- node-pg-migrate redo",
     "migrate:create": "node-pg-migrate create -j sql",
+    "db:clear": "dotenv -e .env -- node ./src/core/scripts/clearDatabase.mjs",
     "gen:secret": "node ./src/core/scripts/generateSecret.mjs"
   },
   "imports": {
@@ -42,18 +43,17 @@
       "ecmaVersion": "latest"
     },
     "rules": {
+      "no-console": "warn",
       "quotes": [
-        2,
+        "warn",
         "double",
         {
           "allowTemplateLiterals": true,
           "avoidEscape": true
         }
       ],
-      "semi": [
-        "error",
-        "never"
-      ]
+      "semi": ["warn", "never"],
+      "no-unused-vars": "warn"
     }
   },
   "devDependencies": {
@@ -72,6 +72,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "argon2": "^0.40.1",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

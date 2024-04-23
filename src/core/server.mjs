@@ -4,6 +4,7 @@ import session from "express-session"
 import cookieParser from "cookie-parser"
 import { config } from "#src/config.mjs"
 import { loggerMiddleware } from "./logger.mjs"
+import { globalErrorHandler } from "./middleware/globalErrorHandler.mjs"
 
 /**
  * create an fully configured instance of the express server
@@ -23,6 +24,7 @@ export function createServer() {
 
   /** expose static assets and public files */
   app.use(express.static(config.server.publicDir))
+  app.use(globalErrorHandler)
 
   return app
 }

@@ -46,11 +46,19 @@ WHERE
 LIMIT 1;
 $$ LANGUAGE SQL;
 
-CREATE FUNCTION user_list () RETURNS users AS $$
+CREATE FUNCTION user_find_by_email (user_email TEXT) RETURNS users AS $$
+SELECT * FROM users
+WHERE
+  email = user_email
+  AND deleted_at IS NULL
+LIMIT 1;
+$$ LANGUAGE SQL;
+
+CREATE VIEW user_list AS
 SELECT * FROM users
 WHERE
   deleted_at is NULL;
-$$ LANGUAGE SQL;
+
 
 -- Down Migration
 DROP PROCEDURE user_create (
@@ -72,4 +80,6 @@ DROP PROCEDURE user_delete (id UUID);
 
 DROP FUNCTION user_find_by_id (id UUID);
 
-DROP FUNCTION user_list ();
+DROP FUNCTION user_find_by_email (user_email TEXT);
+
+DROP VIEW user_list ();
