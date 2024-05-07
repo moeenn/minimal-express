@@ -3,6 +3,7 @@ import { createServer } from "#src/core/server.mjs"
 import { publicPagesRouter } from "./modules/publicPages/publicPagesRouter.mjs"
 import { authRouter } from "./modules/auth/authRouter.mjs"
 import { logger } from "./core/logger.mjs"
+import { sql } from "./core/database.mjs"
 
 /** @returns {Promise<void>} */
 async function main() {
@@ -18,4 +19,6 @@ async function main() {
   })
 }
 
-main().catch(console.error)
+main()
+  .then(async () => await sql.end())
+  .catch(console.error)

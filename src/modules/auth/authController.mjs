@@ -5,7 +5,6 @@ import { UserRegistrationPage } from "./views/pages/UserRegistrationPage.mjs"
 import { LoginFormDTO, UserRegisterFormDTO } from "./authDTO.mjs"
 import { AuthService } from "./authService.mjs"
 import { UserRepository } from "../user/userRepository.mjs"
-import { User } from "../user/user.mjs"
 import { Hash } from "#src/core/utils/hash.mjs"
 
 export const AuthController = {
@@ -66,16 +65,16 @@ export const AuthController = {
       return
     }
 
-    const user = new User({
+    /** @type {import("#src/modules/user/user").UserInsert} */
+    const user = {
       user_id: crypto.randomUUID(),
       email: form.ok.email,
       password: await Hash.hash(form.ok.password),
-      role: "USER",
+      role: "user",
       is_active: true,
-      created_at: "2020-01-01T00:00:00Z",
-    })
+    }
 
-    const result = await recoverAsync(() => UserRepository.createUser(user))
+    const result = await recoverAsync(() => UserRepository.create(user))
     if (result.error) {
       res.status(status.UNPROCESSABLE_ENTITY).json({ error: result.error })
       return

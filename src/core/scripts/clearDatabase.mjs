@@ -1,6 +1,12 @@
-import { db } from "#src/core/database.mjs"
+import { sql } from "#src/core/database.mjs"
 
-db.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;")
+async function clearDatabase() {
+  await sql`
+  DROP SCHEMA public CASCADE; CREATE SCHEMA public;
+  `
+}
+
+clearDatabase()
   .then(() => console.log("Database cleared"))
   .catch((err) => console.error("Failed to clear database", err))
-  .finally(() => db.end())
+  .finally(() => sql.end())

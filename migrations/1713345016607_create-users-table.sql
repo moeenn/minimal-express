@@ -1,18 +1,18 @@
- -- Up Migration
-CREATE TYPE user_role AS ENUM('ADMIN', 'USER');
+-- Up Migration
+create type user_role as enum('admin', 'user');
 
-CREATE TABLE users (
-  user_id UUID,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  role user_role NOT NULL DEFAULT 'ADMIN'::user_role,
-  is_active BOOL DEFAULT TRUE,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  deleted_at TIMESTAMP NULL,
-  PRIMARY KEY (user_id)
-);
+create table
+  users (
+    user_id uuid,
+    email text unique not null,
+    password text not null,
+    role user_role not null default 'user',
+    is_active boolean not null default true,
+    created_at timestamp not null default now(),
+    deleted_at timestamp null,
+    primary key (user_id)
+  )
 
 -- Down Migration
-DROP TYPE user_role;
-
-DROP TABLE users;
+drop table users;
+drop type user_role;

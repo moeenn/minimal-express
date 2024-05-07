@@ -6,13 +6,21 @@ export const AuthService = {
    *
    * @param {string} email
    * @param {string} clearTextPassword
-   * @returns {Promise<void>}
+   * @returns {Promise<import("#src/modules/user/user.js").User>}
    */
   async attemptLogin(email, clearTextPassword) {
-    const user = await UserRepository.findUserByEmail(email)
+    const err = new Error("Invalid email or password")
+
+    const user = await UserRepository.findByEmail(email)
+    if (!user) {
+      throw err
+    }
+
     const isValid = await Hash.verify(user.password, clearTextPassword)
     if (!isValid) {
-      throw new Error("Invalid email or password")
+      throw err 
     }
+
+    return user
   },
 }
