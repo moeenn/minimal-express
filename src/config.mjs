@@ -1,11 +1,14 @@
-import { env } from "#src/core/utils/env.mjs"
+import { env } from "#src/lib/utils/env.mjs"
 import process from "node:process"
 import path from "node:path"
 
 export const config = {
   server: {
     port: 3000,
-    publicDir: path.join(process.cwd(), "public"),
+    public: {
+      exposePublicFolder: false,
+      publicDir: path.join(process.cwd(), "public"),
+    },
   },
   logger: {
     level: env("LOG_LEVEL", "http"),

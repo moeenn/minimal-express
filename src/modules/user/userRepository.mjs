@@ -1,4 +1,4 @@
-import { sql } from "#src/core/database.mjs"
+import { sql } from "#src/lib/database.mjs"
 
 /**
  * @typedef {import("./user").User} User

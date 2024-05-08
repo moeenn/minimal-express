@@ -3,7 +3,7 @@
  * @typedef {import("express").Response} Response
  * @typedef {import("express").NextFunction} NextFunction
  *
- * @param {(req: Request, res: Response, next: NextFunction) => Promise<void>} callback
+ * @param {(req: Request, res: Response, next: NextFunction) => Promise<any>} callback
  * @returns {(req: Request, res: Response, next: NextFunction) => void}
  */
 export function runAsync(callback) {

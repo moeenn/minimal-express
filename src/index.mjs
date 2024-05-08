@@ -1,16 +1,14 @@
 import { config } from "./config.mjs"
-import { createServer } from "#src/core/server.mjs"
-import { publicPagesRouter } from "./modules/publicPages/publicPagesRouter.mjs"
-import { authRouter } from "./modules/auth/authRouter.mjs"
-import { logger } from "./core/logger.mjs"
+import { createServer } from "#src/lib/server.mjs"
+import { authRouter } from "./modules/auth/auth.router.mjs"
+import { logger } from "./lib/logger.mjs"
 
 /** @returns {Promise<void>} */
 async function main() {
-  const app = createServer()
-
-  /** register all routers here */
-  app.use("/", publicPagesRouter)
-  app.use("/auth", authRouter)
+  const app = createServer((instance) => {
+    /** register all routers here */
+    instance.use("/auth", authRouter)
+  })
 
   /** start the server process */
   app.listen(config.server.port, () => {

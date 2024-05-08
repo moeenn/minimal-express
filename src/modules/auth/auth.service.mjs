@@ -1,5 +1,6 @@
 import { UserRepository } from "#src/modules/user/userRepository.mjs"
-import { Hash } from "#src/core/utils/hash.mjs"
+import { Hash } from "#src/lib/utils/hash.mjs"
+import { AuthError } from "#src/lib/errors.mjs"
 
 export const AuthService = {
   /**
@@ -9,8 +10,7 @@ export const AuthService = {
    * @returns {Promise<import("#src/modules/user/user.js").User>}
    */
   async attemptLogin(email, clearTextPassword) {
-    const err = new Error("Invalid email or password")
-
+    const err = new AuthError("Invalid email or password")
     const user = await UserRepository.findByEmail(email)
     if (!user) {
       throw err
