@@ -1,5 +1,5 @@
 import html from "noop-tag"
-import { BaseLayout } from "#src/views/layouts/BaseLayout.mjs"
+import { BaseLayout } from "#src/views/layouts/BaseLayout.view.mjs"
 
 /**
  * @typedef Props

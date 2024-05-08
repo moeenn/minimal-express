@@ -1,6 +1,6 @@
 import html from "noop-tag"
-import { BaseLayout } from "#src/views/layouts/BaseLayout.mjs"
-import { LoginForm } from "#src/modules/auth/views/components/LoginForm.mjs"
+import { BaseLayout } from "#src/views/layouts/BaseLayout.view.mjs"
+import { LoginForm } from "#src/modules/auth/views/components/LoginForm.view.mjs"
 
 /**
  * @typedef Props

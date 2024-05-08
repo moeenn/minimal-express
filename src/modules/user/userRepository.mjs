@@ -21,9 +21,9 @@ export const UserRepository = {
   },
 
   /**
-   * 
+   *
    * @param {string} id
-   * @returns {Promise<User | undefined>} 
+   * @returns {Promise<User | undefined>}
    */
   async findById(id) {
     /** @type {User[]} */
@@ -38,9 +38,9 @@ export const UserRepository = {
   },
 
   /**
-   * 
+   *
    * @param {string} email
-   * @returns {Promise<User | undefined>} 
+   * @returns {Promise<User | undefined>}
    */
   async findByEmail(email) {
     /** @type {User[]} */
@@ -62,8 +62,8 @@ export const UserRepository = {
   async create(user) {
     /** @type {User[]} */
     const result = await sql`
-    insert into users (email, password, role, is_active)
-    values (${user.email}, ${user.password}, ${user.role}, ${user.is_active})
+    insert into users (user_id, email, password, role, is_active)
+    values (${user.user_id}, ${user.email}, ${user.password}, ${user.role}, ${user.is_active})
     returning *
     `
 

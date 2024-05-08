@@ -18,7 +18,7 @@ export const AuthService = {
 
     const isValid = await Hash.verify(user.password, clearTextPassword)
     if (!isValid) {
-      throw err 
+      throw err
     }
 
     return user

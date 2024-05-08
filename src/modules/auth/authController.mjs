@@ -1,7 +1,7 @@
 import { recover, recoverAsync } from "#src/core/utils/recover.mjs"
 import status from "http-status"
-import { LoginPage } from "./views/pages/LoginPage.mjs"
-import { UserRegistrationPage } from "./views/pages/UserRegistrationPage.mjs"
+import { LoginPage } from "./views/pages/LoginPage.view.mjs"
+import { UserRegistrationPage } from "./views/pages/UserRegistrationPage.view.mjs"
 import { LoginFormDTO, UserRegisterFormDTO } from "./authDTO.mjs"
 import { AuthService } from "./authService.mjs"
 import { UserRepository } from "../user/userRepository.mjs"
@@ -76,10 +76,10 @@ export const AuthController = {
 
     const result = await recoverAsync(() => UserRepository.create(user))
     if (result.error) {
-      res.status(status.UNPROCESSABLE_ENTITY).json({ error: result.error })
+      res.status(status.BAD_REQUEST).json({ error: result.error })
       return
     }
 
-    res.json({ user })
+    res.send(LoginPage({}))
   },
 }
