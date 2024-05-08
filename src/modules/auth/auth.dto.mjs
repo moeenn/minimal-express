@@ -69,3 +69,17 @@ export class UserRegisterFormDTO {
     }
   }
 }
+
+export class UserDTO {
+  /** 
+   * @param {import("#src/modules/user/user").User} user
+  */
+  constructor(user) {
+    this.id = user.user_id
+    this.email = user.email
+    this.role = user.role
+    this.isActive = user.is_active
+    this.createdAt = user.created_at
+    this.deletedAt = user.deleted_at
+  }
+}

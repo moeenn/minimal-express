@@ -7,7 +7,7 @@ import { logger } from "./lib/logger.mjs"
 async function main() {
   const app = createServer((instance) => {
     /** register all routers here */
-    instance.use("/auth", authRouter)
+    instance.use("/api/auth", authRouter)
   })
 
   /** start the server process */

@@ -1,4 +1,4 @@
-import { LoginFormDTO, UserRegisterFormDTO } from "./auth.dto.mjs"
+import { LoginFormDTO, UserDTO, UserRegisterFormDTO } from "./auth.dto.mjs"
 import { AuthService } from "./auth.service.mjs"
 import { UserRepository } from "#src/modules/user/userRepository.mjs"
 import { runAsync } from "#src/lib/utils/runAsync.mjs"
@@ -10,7 +10,9 @@ export const AuthController = {
     const user = await AuthService.attemptLogin(form.email, form.password)
 
     // TODO: generate auth tokens
-    res.json(okResponse("login successful"))
+    return res.json(okResponse("login successful", { 
+      user: new UserDTO(user),
+    }))
   }),
 
   userRegister: runAsync(async (req, res) => {

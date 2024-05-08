@@ -1,9 +1,8 @@
 import { sql } from "#src/lib/database.mjs"
 
 async function clearDatabase() {
-  await sql`
-  DROP SCHEMA public CASCADE; CREATE SCHEMA public;
-  `
+  await sql`DROP SCHEMA public CASCADE`
+  await sql`CREATE SCHEMA public`
 }
 
 clearDatabase()

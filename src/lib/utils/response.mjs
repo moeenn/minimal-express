@@ -9,8 +9,8 @@ export function errorResponse(message, status, details = undefined) {
 
 /**
  * @param {string} message
- * @param {unknown} [details]
+ * @param {unknown} [data]
  */
-export function okResponse(message, details) {
-  return { success: true, message, details }
+export function okResponse(message, data) {
+  return { success: true, message, data }
 }
