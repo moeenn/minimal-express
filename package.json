@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "src/index.mjs",
   "license": "MIT",
+  "engines" : { 
+    "node" : ">=21.0.0"
+  },
   "scripts": {
-    "start:dev": "dotenv -e .env -- nodemon ./src/index.mjs",
+    "start:dev": "node --env-file=.env --watch ./src/index.mjs",
     "start:prod": "pm2 start",
     "stop:prod": "pm2 stop server",
     "type-check": "tsc --project jsconfig.json",
@@ -65,7 +68,6 @@
     "@types/node": "^20.12.7",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.35.0",
-    "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },
