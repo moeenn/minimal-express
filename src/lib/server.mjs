@@ -17,7 +17,6 @@ export function createServer(callback) {
   /** register all global middleware here */
   app.use(loggerMiddleware)
   app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
 
   /** expose static assets and public files */
   if (config.server.public.exposePublicFolder) {

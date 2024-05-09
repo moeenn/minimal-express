@@ -3,16 +3,20 @@ import { AuthService } from "./auth.service.mjs"
 import { UserRepository } from "#src/modules/user/userRepository.mjs"
 import { runAsync } from "#src/lib/utils/runAsync.mjs"
 import { okResponse } from "#src/lib/utils/response.mjs"
+import { JWTFactory } from "#src/lib/utils/jwt.mjs"
 
 export const AuthController = {
   login: runAsync(async (req, res) => {
     const form = new LoginFormDTO(req.body)
     const user = await AuthService.attemptLogin(form.email, form.password)
 
-    // TODO: generate auth tokens
-    return res.json(okResponse("login successful", { 
-      user: new UserDTO(user),
-    }))
+    const token = JWTFactory.generateSessionToken(user)
+    return res.json(
+      okResponse("login successful", {
+        user: new UserDTO(user),
+        token,
+      }),
+    )
   }),
 
   userRegister: runAsync(async (req, res) => {

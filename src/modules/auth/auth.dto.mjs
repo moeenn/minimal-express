@@ -71,9 +71,9 @@ export class UserRegisterFormDTO {
 }
 
 export class UserDTO {
-  /** 
+  /**
    * @param {import("#src/modules/user/user").User} user
-  */
+   */
   constructor(user) {
     this.id = user.user_id
     this.email = user.email

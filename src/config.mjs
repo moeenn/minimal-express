@@ -21,13 +21,11 @@ export const config = {
     password: {
       minLength: 8,
     },
-    session: {
-      secret: env("SESSION_SECRET"),
-      resave: false,
-      saveUninitialized: true,
-      cookie: {
-        secure: true,
-      },
+    jwt: {
+      secret: env("JWT_SECRET"),
+      expiresInHours: 1,
+      algorithm: /** @type {import("jsonwebtoken").Algorithm} */ ("HS256"),
+      issuer: env("API_HOST"),
     },
   },
 }
