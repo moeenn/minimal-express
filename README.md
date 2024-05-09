@@ -1,34 +1,36 @@
-# Typescript Sandbox
-A Typescript sandbox with following tools already setup
-- Typescript for type-checking i.e. ```tsc```
-- ```swc``` for code compilation
-- ```eslint``` for static analysis and linting
-- ```jest``` for testing
-- Some basic ```package.json``` scripts
+# Minimal Express
 
 ## Setup
 ```bash
-$ npm i --save-dev
+# install dependencies
+$ npm i -D
+
+# perform initial build
+$ npm run build
+
+# create a new .env file
+$ cp .env.example .env
+
+# generate secret. (Note: add secret as JWT_SECRET to .env file)
+$ npm run gen:secret
 ```
+
 
 ## Run in Development Mode
 ```bash
-$ npm run dev
+$ npm run start:dev
 ```
 
-## Run in Production Mode
-```bash
-$ npm run build
-$ npm run start
-```
-*Note*: The `NODE_ENV` environment variable will be set to `production` when running the app in production mode.
-
-## Linting with ESLint
-```bash
-$ npm run lint
-```
 
 ## Running Tests with Jest
 ```bash
 $ npm run test
 ```
+
+
+## Run in Production Mode
+```bash
+$ npm run build
+$ npm run start:prod
+```
+*Note*: The `NODE_ENV` environment variable will be set to `production` when running the app in production mode.
