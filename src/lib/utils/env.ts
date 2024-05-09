@@ -3,11 +3,11 @@ import process from "node:process"
 /**
  * read environment variables, throw error if variable is not set
  *
- * @param {string} key
- * @param {string} [fallback]
- * @returns {string}
  */
-export function env(key, fallback = undefined) {
+export function env(
+  key: string,
+  fallback: string | undefined = undefined,
+): string {
   const value = process.env[key]
   if (!value && !!fallback) {
     return fallback

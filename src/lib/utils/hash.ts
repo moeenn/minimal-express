@@ -4,21 +4,16 @@ export const Hash = {
   /**
    * hash & salt a cleartext password string
    *
-   * @param {string} password
-   * @returns {Promise<string>}
    */
-  async hash(password) {
+  async hash(password: string): Promise<string> {
     return await argon2.hash(password)
   },
 
   /**
    * verify whether hash / salt combo matches with the cleartext password string
    *
-   * @param {string} hashed
-   * @param {string} cleartext
-   * @returns {Promise<boolean>}
    */
-  async verify(hashed, cleartext) {
+  async verify(hashed: string, cleartext: string): Promise<boolean> {
     return await argon2.verify(hashed, cleartext)
   },
 }

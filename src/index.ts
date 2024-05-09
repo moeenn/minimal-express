@@ -1,11 +1,10 @@
-import { config } from "./config.mjs"
-import { createServer } from "#src/lib/server.mjs"
-import { authRouter } from "./modules/auth/auth.router.mjs"
-import { userRouter } from "./modules/user/user.router.mjs"
-import { logger } from "./lib/logger.mjs"
+import { config } from "./config"
+import { createServer } from "./lib/server"
+import { authRouter } from "./modules/auth/auth.router"
+import { userRouter } from "./modules/user/user.router"
+import { logger } from "./lib/logger"
 
-/** @returns {Promise<void>} */
-async function main() {
+async function main(): Promise<void> {
   const app = createServer((instance) => {
     /** register all routers here */
     instance.use("/api/auth", authRouter)

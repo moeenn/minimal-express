@@ -1,6 +1,7 @@
-import { env } from "#src/lib/utils/env.mjs"
+import { env } from "@/lib/utils/env"
 import process from "node:process"
 import path from "node:path"
+import { Algorithm } from "jsonwebtoken"
 
 export const config = {
   server: {
@@ -24,7 +25,7 @@ export const config = {
     jwt: {
       secret: env("JWT_SECRET"),
       expiresInHours: 1,
-      algorithm: /** @type {import("jsonwebtoken").Algorithm} */ ("HS256"),
+      algorithm: "HS256" as Algorithm,
       issuer: env("API_HOST"),
     },
   },

@@ -1,17 +1,17 @@
 import { z } from "zod"
-import { config } from "#src/config.mjs"
-import { ValidationError } from "#src/lib/errors.mjs"
+import { config } from "@/config"
+import { ValidationError } from "@/lib/errors"
 
 export class LoginDTO {
+  email: string
+  password: string
+
   #schema = z.object({
     email: z.string().email(),
     password: z.string().min(config.auth.password.minLength),
   })
 
-  /**
-   * @param {unknown} data
-   */
-  constructor(data) {
+  constructor(data: unknown) {
     const v = this.#schema.safeParse(data)
     if (!v.success) {
       throw new ValidationError(v.error)

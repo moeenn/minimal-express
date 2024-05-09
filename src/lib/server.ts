@@ -1,18 +1,15 @@
-import express from "express"
+import express, { Express } from "express"
 import bodyParser from "body-parser"
 import helmet from "helmet"
-import { config } from "#src/config.mjs"
-import { loggerMiddleware } from "./logger.mjs"
-import { globalErrorHandler } from "./middleware.mjs"
+import { config } from "@/config"
+import { loggerMiddleware } from "./logger"
+import { globalErrorHandler } from "./middleware"
 
 /**
  * create an fully configured instance of the express server
  * this instance will also be used for testing
- *
- * @param {(instance: import("express").Express) => void} callback
- * @returns {import("express").Express}
  */
-export function createServer(callback) {
+export function createServer(callback: (_: Express) => void): Express {
   const app = express()
 
   /** register all global middleware here */

@@ -1,7 +1,7 @@
-import { okResponse } from "#src/lib/utils/response.mjs"
-import { runAsync } from "#src/lib/utils/runAsync.mjs"
-import { UserRegisterDTO } from "./user.dto.mjs"
-import { UserService } from "./user.service.mjs"
+import { okResponse } from "@/lib/utils/response"
+import { runAsync } from "@/lib/utils/runAsync"
+import { UserRegisterDTO } from "./user.dto"
+import { UserService } from "./user.service"
 
 export const UserController = {
   userRegister: runAsync(async (req, res) => {

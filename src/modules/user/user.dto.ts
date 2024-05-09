@@ -1,13 +1,18 @@
 import { z } from "zod"
-import { config } from "#src/config.mjs"
-import { ValidationError } from "#src/lib/errors.mjs"
-import { Hash } from "#src/lib/utils/hash.mjs"
+import { config } from "@/config"
+import { ValidationError } from "@/lib/errors"
+import { Hash } from "@/lib/utils/hash"
+import { User, UserInsert, UserRole } from "./user"
 
 export class UserDTO {
-  /**
-   * @param {import("#src/modules/user/user").User} user
-   */
-  constructor(user) {
+  id: string
+  email: string
+  role: UserRole
+  isActive: boolean
+  createdAt: Date
+  deletedAt?: Date
+
+  constructor(user: User) {
     this.id = user.user_id
     this.email = user.email
     this.role = user.role
@@ -18,6 +23,10 @@ export class UserDTO {
 }
 
 export class UserRegisterDTO {
+  email: string
+  password: string
+  confirmPassword: string
+
   #schema = z
     .object({
       email: z.string().email(),
@@ -33,11 +42,7 @@ export class UserRegisterDTO {
       }
     })
 
-  /**
-   *
-   * @param {unknown} data
-   */
-  constructor(data) {
+  constructor(data: unknown) {
     const v = this.#schema.safeParse(data)
     if (!v.success) {
       throw new ValidationError(v.error)
@@ -48,11 +53,7 @@ export class UserRegisterDTO {
     this.confirmPassword = v.data.confirmPassword
   }
 
-  /**
-   *
-   * @returns {Promise<import("#src/modules/user/user").UserInsert>}
-   */
-  async toUserInsert() {
+  async toUserInsert(): Promise<UserInsert> {
     return {
       user_id: crypto.randomUUID(),
       email: this.email,

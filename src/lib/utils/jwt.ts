@@ -1,54 +1,36 @@
 import jwt from "jsonwebtoken"
 import { z } from "zod"
-import { config } from "#src/config.mjs"
+import { config } from "@/config"
+import { User, UserRole } from "@/modules/user/user"
 
-/**
- * @typedef SessionToken
- * @property {string} accessToken
- * @property {string} refreshToken
- * @property {number} expiry
- *
- *
- * @typedef JWTEncoded
- * @property {string} token
- * @property {number} expiry
- *
- * @typedef {import("#src/modules/user/user").User} User
- * @typedef {import("#src/modules/user/user").UserRole} UserRole
- */
+export type SessionToken = {
+  accessToken: string
+  refreshToken: string
+  expiry: number
+}
+
+type JWTEncoded = {
+  token: string
+  expiry: number
+}
 
 const SESSION_REFRESH_TOKEN_SCOPE = "session.refresh"
 const SESSION_ACCESS_TOKEN_SCOPE = "session.access"
 
 class SessionRefreshToken {
-  /** @type {string} */
-  userId
+  userId: string
+  email: string
+  role: UserRole
+  scope: string
 
-  /** @type {string} */
-  email
-
-  /** @type {UserRole} */
-  role
-
-  /** @type {string} */
-  scope
-
-  /**
-   * @param {string} userId
-   * @param {string} email
-   * @param {UserRole} role
-   */
-  constructor(userId, email, role) {
+  constructor(userId: string, email: string, role: UserRole) {
     this.userId = userId
     this.email = email
     this.role = role
     this.scope = SESSION_REFRESH_TOKEN_SCOPE
   }
 
-  /**
-   * @returns {JWTEncoded}
-   */
-  encode() {
+  encode(): JWTEncoded {
     const token = JWT.generateNonExpiringToken({
       userId: this.userId,
       email: this.email,
@@ -59,11 +41,7 @@ class SessionRefreshToken {
     return { token, expiry: -1 }
   }
 
-  /**
-   * @param {unknown} payload
-   * @returns {SessionRefreshToken | undefined}
-   */
-  static #validatePayload(payload) {
+  static #validatePayload(payload: unknown): SessionRefreshToken | undefined {
     const schema = z.object({
       userId: z.string().uuid(),
       email: z.string().email(),
@@ -79,11 +57,7 @@ class SessionRefreshToken {
     return new SessionRefreshToken(v.data.userId, v.data.email, v.data.role)
   }
 
-  /**
-   * @param {string} token
-   * @return {SessionRefreshToken | undefined}
-   */
-  static validate(token) {
+  static validate(token: string): SessionRefreshToken | undefined {
     try {
       const payload = jwt.verify(token, config.auth.jwt.secret)
       if (typeof payload == "string") return
@@ -95,27 +69,16 @@ class SessionRefreshToken {
 }
 
 class SessionAccessToken extends SessionRefreshToken {
-  /** @type {number} */
-  expiry
+  expiry: number
+  scope: string
 
-  /** @type {string} */
-  scope
-
-  /**
-   * @param {string} userId
-   * @param {string} email
-   * @param {UserRole} role
-   */
-  constructor(userId, email, role) {
+  constructor(userId: string, email: string, role: UserRole) {
     super(userId, email, role)
     this.scope = SESSION_ACCESS_TOKEN_SCOPE
     this.expiry = JWT.calculateExpiry()
   }
 
-  /**
-   * @returns {JWTEncoded}
-   */
-  enodeWithExpiry() {
+  enodeWithExpiry(): JWTEncoded {
     return JWT.generateExpiringToken({
       userId: this.userId,
       email: this.email,
@@ -124,11 +87,7 @@ class SessionAccessToken extends SessionRefreshToken {
     })
   }
 
-  /**
-   * @param {unknown} payload
-   * @returns {SessionAccessToken | undefined}
-   */
-  static #validatePayload(payload) {
+  static #validatePayload(payload: unknown): SessionAccessToken | undefined {
     const schema = z.object({
       userId: z.string().uuid(),
       email: z.string().email(),
@@ -144,11 +103,7 @@ class SessionAccessToken extends SessionRefreshToken {
     return new SessionAccessToken(v.data.userId, v.data.email, v.data.role)
   }
 
-  /**
-   * @param {string} token
-   * @return {SessionAccessToken | undefined}
-   */
-  static validate(token) {
+  static validate(token: string): SessionAccessToken | undefined {
     try {
       const payload = jwt.verify(token, config.auth.jwt.secret)
       if (typeof payload == "string") return
@@ -163,10 +118,8 @@ export class JWTFactory {
   /**
    * create access and refresh tokens for the user at successful login
    *
-   * @param {User} user
-   * @returns {SessionToken}
    */
-  static generateSessionToken(user) {
+  static generateSessionToken(user: User): SessionToken {
     const accessPayload = new SessionAccessToken(
       user.user_id,
       user.email,
@@ -189,19 +142,15 @@ export class JWTFactory {
 export class JWT {
   /**
    * calculate expiry timestamp for the client
-   * @returns {number}
+   *
    */
-  static calculateExpiry() {
+  static calculateExpiry(): number {
     return (
       Math.floor(Date.now() / 1000) + 60 * 60 * config.auth.jwt.expiresInHours
     )
   }
 
-  /**
-   * @param {object} payload
-   * @returns {JWTEncoded}
-   */
-  static generateExpiringToken(payload) {
+  static generateExpiringToken(payload: object): JWTEncoded {
     const token = jwt.sign(payload, config.auth.jwt.secret, {
       expiresIn: 60 * 60 * config.auth.jwt.expiresInHours,
       notBefore: "0",
@@ -213,11 +162,7 @@ export class JWT {
     return { token, expiry }
   }
 
-  /**
-   * @param {object} payload
-   * @returns {string}
-   */
-  static generateNonExpiringToken(payload) {
+  static generateNonExpiringToken(payload: object): string {
     return jwt.sign(payload, config.auth.jwt.secret, {
       notBefore: "0",
       algorithm: config.auth.jwt.algorithm,

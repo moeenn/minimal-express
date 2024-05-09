@@ -1,4 +1,4 @@
-import { sql } from "#src/lib/database.mjs"
+import { sql } from "@/lib/database"
 
 async function clearDatabase() {
   await sql`DROP SCHEMA public CASCADE`

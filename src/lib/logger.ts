@@ -1,6 +1,6 @@
 import winston from "winston"
 import morgan from "morgan"
-import { config } from "#src/config.mjs"
+import { config } from "@/config"
 
 export const logger = winston.createLogger({
   level: config.logger.level,

@@ -1,21 +1,15 @@
 import { Http } from "@status/codes"
 
 export class APIError {
-  /** @type {number} */
-  status
+  status: number
+  message: string
+  details: any
 
-  /** @type {string} */
-  message
-
-  /** @type {any} */
-  details
-
-  /**
-   * @param {number} status
-   * @param {string} message
-   * @param {Record<string, unknown> | undefined} details
-   */
-  constructor(status, message, details = undefined) {
+  constructor(
+    status: number,
+    message: string,
+    details: Record<string, unknown> | undefined = undefined,
+  ) {
     this.status = status
     this.message = message
     this.details = details
@@ -23,17 +17,13 @@ export class APIError {
 }
 
 export class ValidationError extends APIError {
-  /**
-   * @param {any} details
-   */
-  constructor(details) {
+  constructor(details: any) {
     super(Http.UnprocessableEntity, "invalid request data provided", details)
   }
 }
 
 export class AuthError extends APIError {
-  /** @param {string | undefined} [message] */
-  constructor(message = undefined) {
+  constructor(message: string | undefined = undefined) {
     super(
       Http.Unauthorized,
       message ?? "you don't have permission to access this resource",
@@ -42,10 +32,7 @@ export class AuthError extends APIError {
 }
 
 export class OperationError extends APIError {
-  /**
-   * @param {string} message
-   */
-  constructor(message) {
+  constructor(message: string) {
     super(Http.BadRequest, message)
   }
 }
