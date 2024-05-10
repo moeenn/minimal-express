@@ -1,13 +1,13 @@
 import { env } from "@/lib/shared/env"
 import process from "node:process"
 import path from "node:path"
-import { Algorithm } from "jsonwebtoken"
+import { Config } from "./lib/types"
 
-export const config = {
+export const config: Config = {
   server: {
     port: 3000,
     public: {
-      exposePublicFolder: false,
+      exposePublicFolder: true,
       publicDir: path.join(process.cwd(), "public"),
     },
   },
@@ -25,7 +25,7 @@ export const config = {
     jwt: {
       secret: env("JWT_SECRET"),
       expiresInHours: 1,
-      algorithm: "HS256" as Algorithm,
+      algorithm: "HS256",
       issuer: env("API_HOST"),
     },
   },

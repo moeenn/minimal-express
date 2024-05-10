@@ -2,6 +2,7 @@ import { config } from "@/config"
 import { z } from "zod"
 import { validate } from "./validation"
 
+// TODO: add total page count
 export type Paginated<T> = {
   page: number
   records: T[]

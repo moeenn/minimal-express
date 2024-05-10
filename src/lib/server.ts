@@ -1,6 +1,7 @@
 import express, { Express } from "express"
 import bodyParser from "body-parser"
 import helmet from "helmet"
+import cors from "cors"
 import { config } from "@/config"
 import { loggerMiddleware } from "./logger"
 import { globalErrorHandler } from "./middleware"
@@ -14,6 +15,7 @@ export function createServer(callback: (_: Express) => void): Express {
 
   /** register all global middleware here */
   app.use(helmet())
+  app.use(cors())
   app.use(loggerMiddleware)
   app.use(bodyParser.json())
 
