@@ -1,7 +1,7 @@
 import { UserRepository } from "@/modules/user/user.repository"
-import { Hash } from "@/lib/utils/hash"
+import { Hash } from "@/lib/shared/hash"
 import { AuthError } from "@/lib/errors"
-import { JWTFactory, SessionToken } from "@/lib/utils/jwt"
+import { JWTFactory, SessionToken } from "@/lib/shared/jwt"
 import { UserDTO } from "@/modules/user/user.dto"
 import { LoginDTO } from "./auth.dto"
 

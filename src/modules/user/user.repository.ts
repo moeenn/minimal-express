@@ -1,11 +1,14 @@
 import { sql } from "@/lib/database"
 import { User, UserInsert } from "./user"
+import { PaginatedDTO } from "@/lib/shared/pagination"
 
 export const UserRepository = {
-  async all(): Promise<User[]> {
+  async all(paginatedDTO: PaginatedDTO): Promise<User[]> {
     const result: User[] = await sql`
-    select * from users
+    select * from users    
     where deleted_at is null
+    order by created_at
+    limit ${paginatedDTO.perPage} offset ${paginatedDTO.getOffset()}
     `
 
     return result

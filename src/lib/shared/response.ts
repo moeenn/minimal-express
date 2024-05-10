@@ -7,8 +7,11 @@ export function errorResponse(
 }
 
 export function okResponse(
-  message: string,
+  message: string | null,
   data: unknown | undefined = undefined,
 ) {
+  if (!message) {
+    return { success: true, data }
+  }
   return { success: true, message, data }
 }

@@ -36,3 +36,9 @@ export class OperationError extends APIError {
     super(Http.BadRequest, message)
   }
 }
+
+export class NotFoundError extends APIError {
+  constructor(message: string) {
+    super(Http.NotFound, message)
+  }
+}

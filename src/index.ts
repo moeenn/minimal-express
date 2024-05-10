@@ -4,6 +4,10 @@ import { authRouter } from "./modules/auth/auth.router"
 import { userRouter } from "./modules/user/user.router"
 import { logger } from "./lib/logger"
 
+/**
+ * program entry-point
+ *
+ */
 async function main(): Promise<void> {
   const app = createServer((instance) => {
     /** register all routers here */

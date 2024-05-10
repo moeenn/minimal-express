@@ -1,4 +1,4 @@
-import { env } from "@/lib/utils/env"
+import { env } from "@/lib/shared/env"
 import process from "node:process"
 import path from "node:path"
 import { Algorithm } from "jsonwebtoken"
@@ -28,5 +28,8 @@ export const config = {
       algorithm: "HS256" as Algorithm,
       issuer: env("API_HOST"),
     },
+  },
+  general: {
+    resultsPerPage: 10,
   },
 }

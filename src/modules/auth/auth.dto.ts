@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { config } from "@/config"
-import { ValidationError } from "@/lib/errors"
+import { validate } from "@/lib/shared/validation"
 
 export class LoginDTO {
   email: string
@@ -12,12 +12,8 @@ export class LoginDTO {
   })
 
   constructor(data: unknown) {
-    const v = this.#schema.safeParse(data)
-    if (!v.success) {
-      throw new ValidationError(v.error)
-    }
-
-    this.email = v.data.email
-    this.password = v.data.password
+    const v = validate(data, this.#schema)
+    this.email = v.email
+    this.password = v.password
   }
 }

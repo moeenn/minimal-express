@@ -2,11 +2,10 @@ import { Request, Response, NextFunction } from "express"
 import { logger } from "./logger"
 import { Http } from "@status/codes"
 import { APIError } from "./errors"
-import { errorResponse } from "./utils/response"
+import { errorResponse } from "./shared/response"
 
 /**
  * Handle unhandled errors globally
- *
  */
 export function globalErrorHandler(
   error: unknown,
@@ -17,6 +16,8 @@ export function globalErrorHandler(
   let message: string
   let status: number = Http.InternalServerError
   let details: Record<string, unknown> | undefined = undefined
+
+  // TODO: handle database errors
 
   if (error instanceof APIError) {
     message = error.message
@@ -32,3 +33,6 @@ export function globalErrorHandler(
 
   res.status(status).json(errorResponse(message, status, details))
 }
+
+// TODO: implement isLoggedIn
+// TODO: implemnet hasRole

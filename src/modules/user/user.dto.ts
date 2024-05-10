@@ -1,8 +1,8 @@
 import { z } from "zod"
 import { config } from "@/config"
-import { ValidationError } from "@/lib/errors"
-import { Hash } from "@/lib/utils/hash"
+import { Hash } from "@/lib/shared/hash"
 import { User, UserInsert, UserRole } from "./user"
+import { validate } from "@/lib/shared/validation"
 
 export class UserDTO {
   id: string
@@ -43,14 +43,10 @@ export class UserRegisterDTO {
     })
 
   constructor(data: unknown) {
-    const v = this.#schema.safeParse(data)
-    if (!v.success) {
-      throw new ValidationError(v.error)
-    }
-
-    this.email = v.data.email
-    this.password = v.data.password
-    this.confirmPassword = v.data.confirmPassword
+    const v = validate(data, this.#schema)
+    this.email = v.email
+    this.password = v.password
+    this.confirmPassword = v.confirmPassword
   }
 
   async toUserInsert(): Promise<UserInsert> {
@@ -61,5 +57,21 @@ export class UserRegisterDTO {
       role: "user",
       is_active: true,
     }
+  }
+}
+
+export class UserToggleActiveDTO {
+  userId: string
+  active: boolean
+
+  #schema = z.object({
+    userId: z.string().uuid(),
+    active: z.boolean(),
+  })
+
+  constructor(data: unknown) {
+    const v = validate(data, this.#schema)
+    this.userId = v.userId
+    this.active = v.active
   }
 }
