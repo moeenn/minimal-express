@@ -1,5 +1,5 @@
 import { okResponse } from "@/lib/shared/response"
-import { runAsync } from "@/lib/shared/runAsync"
+import { runAsync } from "@/lib/server"
 import { UserRegisterDTO, UserToggleActiveDTO } from "./user.dto"
 import { UserService } from "./user.service"
 import { PaginatedDTO } from "@/lib/shared/pagination"

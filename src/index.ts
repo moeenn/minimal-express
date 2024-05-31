@@ -1,7 +1,5 @@
 import { config } from "./config"
 import { createServer } from "./lib/server"
-import { authRouter } from "./modules/auth/auth.router"
-import { userRouter } from "./modules/user/user.router"
 import { logger } from "./lib/logger"
 
 /**
@@ -9,11 +7,7 @@ import { logger } from "./lib/logger"
  *
  */
 async function main(): Promise<void> {
-  const app = createServer((instance) => {
-    /** register all routers here */
-    instance.use("/api/auth", authRouter)
-    instance.use("/api/user", userRouter)
-  })
+  const app = createServer()
 
   /** start the server process */
   app.listen(config.server.port, () => {

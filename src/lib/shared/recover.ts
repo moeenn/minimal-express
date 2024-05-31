@@ -1,3 +1,12 @@
+/**
+ * ----------------------------------------------------------------------------
+ * 
+ * alternative error handling appraoch which prevents the need to use try-catch
+ * and nested try-catch in the code.
+ * 
+ * ----------------------------------------------------------------------------
+ */
+
 type ok<T> = { ok: T; error: null }
 type error = { ok: null; error: Error }
 
