@@ -52,3 +52,9 @@ $ npm run start:prod
 The web server has been setup to server static files. This behavior is not enabled by default but can be enabled by updating `src/config.ts` file and setting `server.public.exposePublicFolder` to `true`.
 
 The web server has been setup to server static files from `public` folder located at the root of the project. These files will be served from root url of the server. E.g. File `public/manifest.json` will be served at `https://domain.com/manifest.json`.
+
+
+#### TODO
+
+- [ ] Enable rate-limiting
+- [ ] Add health-check end-points

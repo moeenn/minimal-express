@@ -11,13 +11,12 @@ import { APIError } from "./errors"
 import { authRouter } from "@/modules/auth/auth.router"
 import { userRouter } from "@/modules/user/user.router"
 
-
 /**
  * ----------------------------------------------------------------------------
- * 
- * define function for handling errors globally. This will prevent express 
+ *
+ * define function for handling errors globally. This will prevent express
  * server from crashing in case any error in not handled in the controller
- * 
+ *
  * ----------------------------------------------------------------------------
  */
 
@@ -48,13 +47,12 @@ export function globalErrorHandler(
   res.status(status).json(errorResponse(message, status, details))
 }
 
-
 /**
  * ----------------------------------------------------------------------------
- * 
+ *
  * create an fully configured instance of the express server
  * this instance will also be used for testing
- * 
+ *
  * ----------------------------------------------------------------------------
  */
 
@@ -78,16 +76,41 @@ export function createServer(): Express {
 
   /** catch-all error handler: must register after all routes and middleware */
   app.use(globalErrorHandler)
+
+  /** misc. settings */
+  app.disable("x-powered-by")
+
+  /** enable 404 message */
+  app.use((req, res, next) => res.status(Http.NotFound).send("not found"))
+
   return app
+}
+
+export function startServer(app: Express) {
+  const handle = app.listen(config.server.port, () => {
+    logger.info(`starting server on port ${config.server.port}`)
+  })
+
+  /** handle graceful shutdown */
+  const handleShutdown = (signal: string) => () => {
+    logger.warn(`${signal} signal received: closing HTTP server`)
+    handle.close(() => {
+      logger.info("HTTP server shutdown complete")
+    })
+  }
+
+  process.on("SIGTERM", handleShutdown("SIGTERM")) // kill command
+  process.on("SIGQUIT", handleShutdown("SIGQUIT")) // keyboard quit
+  process.on("SIGINT", handleShutdown("SIGINT")) // ctrl+c
 }
 
 /**
  * ----------------------------------------------------------------------------
- * 
+ *
  * express doesn't perform error handling on async request handlers. All request
  * handler functions will be wrapped with the following function to allow proper
  * error handling
- * 
+ *
  * ----------------------------------------------------------------------------
  */
 
@@ -101,9 +124,9 @@ export function runAsync(
 
 /**
  * ----------------------------------------------------------------------------
- * 
+ *
  * helper functions for sending uniform responses
- * 
+ *
  * ----------------------------------------------------------------------------
  */
 

@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { config } from "@/config"
-import { Hash } from "@/lib/shared/hash"
+import argon2 from "argon2"
 import { User, UserInsert, UserRole } from "./user"
 import { validate } from "@/lib/shared/validation"
 
@@ -53,7 +53,7 @@ export class UserRegisterDTO {
     return {
       user_id: crypto.randomUUID(),
       email: this.email,
-      password: await Hash.hash(this.password),
+      password: await argon2.hash(this.password),
       role: "user",
       is_active: true,
     }

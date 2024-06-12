@@ -1,7 +1,6 @@
 import { LoginDTO } from "./auth.dto"
 import { AuthService } from "./auth.service"
-import { runAsync } from "@/lib/server"
-import { okResponse } from "@/lib/shared/response"
+import { runAsync, okResponse } from "@/lib/server"
 
 export const AuthController = {
   login: runAsync(async (req, res) => {

@@ -1,9 +1,9 @@
 import { UserRepository } from "@/modules/user/user.repository"
-import { Hash } from "@/lib/shared/hash"
 import { AuthError } from "@/lib/errors"
 import { JWTFactory, SessionToken } from "@/lib/shared/jwt"
 import { UserDTO } from "@/modules/user/user.dto"
 import { LoginDTO } from "./auth.dto"
+import argon2 from "argon2"
 
 type AttempLoginResult = {
   user: UserDTO
@@ -18,7 +18,7 @@ export const AuthService = {
       throw err
     }
 
-    const isValid = await Hash.verify(user.password, loginDTO.password)
+    const isValid = await argon2.verify(user.password, loginDTO.password)
     if (!isValid) {
       throw err
     }

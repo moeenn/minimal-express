@@ -4,17 +4,14 @@ import { Algorithm } from "jsonwebtoken"
 
 /**
  * ----------------------------------------------------------------------------
- * 
+ *
  * helper functions for accessing environment variables
- * 
+ *
  * ----------------------------------------------------------------------------
  */
 
 /** read environment variables, throw error if variable is not set */
-function env(
-  key: string,
-  fallback: string | undefined = undefined,
-): string {
+function env(key: string, fallback: string | undefined = undefined): string {
   const value = process.env[key]
   if (!value && !!fallback) {
     return fallback
@@ -29,9 +26,9 @@ function env(
 
 /**
  * ----------------------------------------------------------------------------
- * 
- * global configuration types definition 
- * 
+ *
+ * global configuration types definition
+ *
  * ----------------------------------------------------------------------------
  */
 
@@ -83,9 +80,9 @@ export type Config = {
 
 /**
  * ----------------------------------------------------------------------------
- * 
- * global configuration object definition 
- * 
+ *
+ * global configuration object definition
+ *
  * ----------------------------------------------------------------------------
  */
 export const config: Config = {
