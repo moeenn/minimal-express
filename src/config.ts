@@ -27,65 +27,11 @@ function env(key: string, fallback: string | undefined = undefined): string {
 /**
  * ----------------------------------------------------------------------------
  *
- * global configuration types definition
- *
- * ----------------------------------------------------------------------------
- */
-
-type ServerPublicConfig =
-  | { exposePublicFolder: true; publicDir: string }
-  | { exposePublicFolder: false }
-
-type ServerConfig = {
-  port: number
-  public: ServerPublicConfig
-}
-
-type LoggerConfig = {
-  level: string
-  timestampFormat: string
-}
-
-type DatabaseConfig = {
-  uri: string
-}
-
-type AuthPasswordConfig = {
-  minLength: number
-}
-
-type AuthJWTConfig = {
-  secret: string
-  expiresInHours: number
-  algorithm: Algorithm
-  issuer: string
-}
-
-type AuthConfig = {
-  password: AuthPasswordConfig
-  jwt: AuthJWTConfig
-}
-
-type GeneralConfig = {
-  resultsPerPage: number
-}
-
-export type Config = {
-  server: ServerConfig
-  logger: LoggerConfig
-  database: DatabaseConfig
-  auth: AuthConfig
-  general: GeneralConfig
-}
-
-/**
- * ----------------------------------------------------------------------------
- *
  * global configuration object definition
  *
  * ----------------------------------------------------------------------------
  */
-export const config: Config = {
+export const config = {
   server: {
     port: 3000,
     public: {
@@ -107,7 +53,7 @@ export const config: Config = {
     jwt: {
       secret: env("JWT_SECRET"),
       expiresInHours: 1,
-      algorithm: "HS256",
+      algorithm: "HS256" as Algorithm,
       issuer: env("API_HOST"),
     },
   },

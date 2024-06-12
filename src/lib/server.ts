@@ -81,7 +81,9 @@ export function createServer(): Express {
   app.disable("x-powered-by")
 
   /** enable 404 message */
-  app.use((req, res, next) => res.status(Http.NotFound).send("not found"))
+  app.use((req, res, next) => res.status(Http.NotFound).json(
+    errorResponse("not found", Http.NotFound))
+  )
 
   return app
 }
