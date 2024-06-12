@@ -14,7 +14,7 @@
     "db:migrate": "node --env-file=.env ./node_modules/.bin/node-pg-migrate up",
     "db:migration": "node-pg-migrate create -j sql",
     "db:clear": "node --env-file=.env ./build/src/lib/scripts/clearDatabase.js",
-    "gen:secret": "node ./build/src/lib/scripts/generateSecret.js"
+    "gen:secret": "node -e \"console.log(require('node:crypto').randomBytes(64).toString('hex'))\""
   },
   "jest": {
     "transform": {

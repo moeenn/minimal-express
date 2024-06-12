@@ -1,4 +1,5 @@
 import { sql } from "@/lib/database"
+import { logger } from "@/lib/logger"
 
 async function clearDatabase() {
   await sql`DROP SCHEMA public CASCADE`
@@ -6,6 +7,6 @@ async function clearDatabase() {
 }
 
 clearDatabase()
-  .then(() => console.log("Database cleared"))
-  .catch((err) => console.error("Failed to clear database", err))
+  .then(() => logger.info("database cleared"))
+  .catch((err) => logger.error("failed to clear database", err))
   .finally(() => sql.end())
