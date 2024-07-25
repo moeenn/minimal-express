@@ -8,6 +8,7 @@ import { Request, Response, NextFunction } from "express"
 import { logger } from "./logger"
 import { Http } from "@status/codes"
 import { APIError } from "./errors"
+import { healthCheckRouter } from "@/modules/health-check/healthCheck.router"
 import { authRouter } from "@/modules/auth/auth.router"
 import { userRouter } from "@/modules/user/user.router"
 
@@ -71,6 +72,7 @@ export function createServer(): Express {
   }
 
   /** register all routers here */
+  app.use("/api/health-check", healthCheckRouter)
   app.use("/api/auth", authRouter)
   app.use("/api/user", userRouter)
 
@@ -81,8 +83,8 @@ export function createServer(): Express {
   app.disable("x-powered-by")
 
   /** enable 404 message */
-  app.use((req, res, next) => res.status(Http.NotFound).json(
-    errorResponse("not found", Http.NotFound))
+  app.use((req, res, next) =>
+    res.status(Http.NotFound).json(errorResponse("not found", Http.NotFound)),
   )
 
   return app
@@ -134,7 +136,7 @@ export function runAsync(
 
 export function errorResponse(
   message: string,
-  status: number,
+  status: number = Http.BadRequest,
   details: Record<string, unknown> | undefined = undefined,
 ) {
   return { success: false, status, message, details }
@@ -142,10 +144,11 @@ export function errorResponse(
 
 export function okResponse(
   message: string | null,
+  status: number = Http.Ok,
   data: unknown | undefined = undefined,
 ) {
   if (!message) {
-    return { success: true, data }
+    return { success: true, status, data }
   }
-  return { success: true, message, data }
+  return { success: true, status, message, data }
 }

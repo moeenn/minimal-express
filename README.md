@@ -57,4 +57,4 @@ The web server has been setup to server static files from `public` folder locate
 #### TODO
 
 - [ ] Enable rate-limiting
-- [ ] Add health-check end-points
+- [x] Add health-check end-points
