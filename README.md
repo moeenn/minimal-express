@@ -58,3 +58,4 @@ The web server has been setup to server static files from `public` folder locate
 
 - [ ] Enable rate-limiting
 - [x] Add health-check end-points
+- [ ] Add end-point tests
